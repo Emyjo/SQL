@@ -19,7 +19,7 @@ SELECT emp.LastName AS EmployeeLastName, emp.FirstName AS EmployeeFirstName, cus
 FROM chinook.employees emp 
 
 JOIN chinook.customers cust ON cust.SupportRepId = emp.EmployeeId
-JOIN chinook.invoices Inv ON Inv.CustomerId = cust.CustomerId
+JOIN chinook.invoices Inv ON Inv.CustomerId = cust.CustomerId;
 
 #5. Identify which sales agent made the least in sales in 2012.
 SELECT emp.FirstName, emp.LastName,
@@ -34,7 +34,7 @@ ON Inv.CustomerId = cust.CustomerId
 WHERE emp.Title = 'Sales Support Agent' 
 AND Inv.InvoiceDate LIKE '2012%' 
 GROUP BY emp.FirstName
-ORDER BY (round(sum(Inv.Total), 2))  asc LIMIT 1
+ORDER BY (round(sum(Inv.Total), 2))  asc LIMIT 1;
 
 #6. Show the genre and album title for each track.
 SELECT t.Name AS Track, g.Name AS Genre, a.Title AS AlbumTitle
@@ -43,4 +43,4 @@ FROM chinook.genres g
 JOIN chinook.tracks t
 ON g.GenreId=t.GenreId
 JOIN chinook.albums a
-ON t.AlbumId=a.AlbumId
+ON t.AlbumId=a.AlbumId;
