@@ -1,0 +1,46 @@
+#I analyzed a dataset representing a digital media store in this SQL project.
+
+#1. Show a list of all job titles.
+SELECT DISTINCT Title
+FROM chinook.employees;
+
+#2. Show employees who are not sales managers.
+SELECT LastName, FirstName, Title
+FROM chinook.employees
+WHERE Title != 'Sales Manager';
+
+#3. Find the total sales for 2012.
+SELECT SUM(Total)
+FROM chinook.Invoices
+WHERE InvoiceDate BETWEEN '2012-01-01' AND '2012-12-31';
+
+#4. Show the invoice total, customer name, billing address, and sales agent name for all invoices and customers.
+SELECT emp.LastName AS EmployeeLastName, emp.FirstName AS EmployeeFirstName, cust.LastName AS CustLastName, cust.FirstName AS CustFirstName, inv.BillingAddress, inv.Total
+FROM chinook.employees emp 
+
+JOIN chinook.customers cust ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.invoices Inv ON Inv.CustomerId = cust.CustomerId
+
+#5. Identify which sales agent made the least in sales in 2012.
+SELECT emp.FirstName, emp.LastName,
+ROUND(SUM(Inv.Total), 2) AS TotalSales 
+FROM chinook.employees emp
+
+JOIN chinook.customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+
+WHERE emp.Title = 'Sales Support Agent' 
+AND Inv.InvoiceDate LIKE '2012%' 
+GROUP BY emp.FirstName
+ORDER BY (round(sum(Inv.Total), 2))  asc LIMIT 1
+
+#6. Show the genre and album title for each track.
+SELECT t.Name AS Track, g.Name AS Genre, a.Title AS AlbumTitle
+FROM chinook.genres g
+
+JOIN chinook.tracks t
+ON g.GenreId=t.GenreId
+JOIN chinook.albums a
+ON t.AlbumId=a.AlbumId
