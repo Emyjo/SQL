@@ -18,6 +18,7 @@ INSERT INTO store VALUES (13, 'belt', 9.50, 'white', 8);
 INSERT INTO store VALUES (14, 'bag', 17.00, 'orange', 14);
 INSERT INTO store VALUES (15, 'bag', 17.00, 'pink', 2);
 
+
 --display the database ordered by price.
 SELECT * FROM store
 ORDER BY price;
@@ -26,7 +27,6 @@ ORDER BY price;
 SELECT AVG(price) "avg hat price"
 FROM store
 where product='hat';
-
 
 --what are the most 5 expensive items?
 SELECT product, price, in_stock
